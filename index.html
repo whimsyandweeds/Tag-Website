@@ -84,7 +84,8 @@
        ============================================================ */
     html {
       scroll-behavior: smooth;
-      scroll-snap-type: y proximity;    /* proximity = soft stops, not a trap */
+      scroll-snap-type: y mandatory;
+      scroll-padding-top: 72px;
       height: 100%;
     }
 
@@ -485,24 +486,25 @@
        Adjust padding to control vertical spacing
        ============================================================ */
     section {
-      padding: 100px 0;
-      min-height: auto;
+      padding: 108px 0 72px;
+      min-height: 100vh;
       scroll-snap-align: start;
-      scroll-snap-stop: normal;
+      scroll-snap-stop: always;
       display: flex;
       flex-direction: column;
       justify-content: center;
     }
 
-    /* Hero needs extra top padding for fixed nav */
     section.hero {
-      padding-top: 140px;
-      justify-content: flex-start;
+      padding-top: 120px;
     }
 
-    /* CTA can be a bit shorter */
     section.cta {
-      min-height: 80vh;
+      min-height: 100vh;
+    }
+
+    footer {
+      scroll-snap-align: none;
     }
 
     /* On smaller screens, relax scroll-snap so it feels less forced */
@@ -1194,11 +1196,9 @@
       <a href="#" class="logo">TA<span>G</span></a>
       <div class="nav-links" id="navLinks">
         <a href="#problem">Problem</a>
-        <a href="#meet">Product</a>
         <a href="#how">How it works</a>
         <a href="#security">Security</a>
         <a href="#pricing">Pricing</a>
-        <a href="#faq">FAQ</a>
         <a href="#cta" class="btn btn-primary">Join Private Beta</a>
       </div>
       <button class="menu-toggle" id="menuToggle" aria-label="Menu">☰</button>
@@ -1219,20 +1219,6 @@
           <div class="hero-cta">
             <a href="#cta" class="btn btn-primary">Let's kill your next meeting →</a>
             <a href="#how" class="btn btn-outline">See how it works</a>
-          </div>
-          <div class="hero-stats">
-            <div class="stat">
-              <div class="stat-value">31h</div>
-              <div class="stat-label">lost each month to unproductive meetings</div>
-            </div>
-            <div class="stat">
-              <div class="stat-value">72%</div>
-              <div class="stat-label">of meetings miss their goal</div>
-            </div>
-            <div class="stat">
-              <div class="stat-value">2–3d</div>
-              <div class="stat-label">waiting on timezone overlap</div>
-            </div>
           </div>
         </div>
         <div class="hero-visual" aria-label="A meeting ticket cancelled while TAG holds one decision card">
@@ -1292,67 +1278,6 @@
         </div>
         <div class="problem-visual">
           <img src="calendar.webp" alt="Melting calendar overloaded with meetings" width="317" height="395" style="max-width:320px;height:auto;">
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Meet TAG -->
-  <section id="meet">
-    <div class="container">
-      <div class="section-label">The product</div>
-      <h2 class="section-title">Your proxy works the <span class="highlight">night shift</span></h2>
-      <p class="section-desc">Every person gets a personalized, asynchronous AI proxy. You stay in focus. Your agent negotiates dependencies, blockers, and updates while you sleep.</p>
-      
-      <div class="meet-grid">
-        <div class="feature-list">
-          <div class="feature-item">
-            <div class="feature-icon pink">+</div>
-            <div>
-              <h4>You TAG. It thinks.</h4>
-              <p>Drop a link, PDF, Loom, voice note — secure vector memory.</p>
-            </div>
-          </div>
-          <div class="feature-item">
-            <div class="feature-icon yellow">⏱</div>
-            <div>
-              <h4>You sleep. It syncs.</h4>
-              <p>Batch alignment at 2am: dependencies, blockers solved.</p>
-            </div>
-          </div>
-          <div class="feature-item">
-            <div class="feature-icon purple">✓</div>
-            <div>
-              <h4>You click. It ships.</h4>
-              <p>Source-cited decision cards: approve, reject, fix in 5 min.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="ui-card">
-          <div class="ui-card-header">
-            <div class="user">
-              <div class="avatar"></div>
-              You · Focus Mode
-            </div>
-            <span style="font-size:0.8rem;color:var(--text-muted)">3 decisions waiting</span>
-          </div>
-          <div class="ui-row">
-            <span>Sally's proxy → aligned pricing</span>
-            <span class="badge badge-sync">2AM SYNC</span>
-          </div>
-          <div class="ui-row">
-            <span>Engineering handoff resolved</span>
-            <span class="badge badge-ok">GROUNDED ✓</span>
-          </div>
-          <div class="ui-row">
-            <span>Q3 roadmap · Plan A vs B ready</span>
-            <span class="badge badge-decide">DECIDE</span>
-          </div>
-          <div class="ui-row">
-            <span>Zero meetings booked today</span>
-            <span class="badge badge-calm">CALM</span>
-          </div>
         </div>
       </div>
     </div>
@@ -1489,88 +1414,6 @@
             <li>Onboarding sandboxes</li>
             <li>Offboarding auto-wipe</li>
           </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Why now -->
-  <section id="why">
-    <div class="container">
-      <div class="section-label">Why TAG wins</div>
-      <h2 class="section-title">The meeting was the <span class="highlight">product gap</span></h2>
-      
-      <div class="why-grid">
-        <div class="why-item">
-          <div class="why-num">01</div>
-          <div>
-            <h3>Slack = faster noise. Notion = prettier docs.</h3>
-            <p>TAG = decisions without meetings. Tools added speed and polish. No one killed the meeting itself.</p>
-          </div>
-        </div>
-        <div class="why-item">
-          <div class="why-num">02</div>
-          <div>
-            <h3>Remote work broke sync. AI finally makes async work.</h3>
-            <p>2020–24 we tried to copy the office online. Now agents negotiate while you sleep.</p>
-          </div>
-        </div>
-        <div class="why-item">
-          <div class="why-num">03</div>
-          <div>
-            <h3>Competitors track you. We empower you.</h3>
-            <p>Explicit &gt; Passive. No screen recording, no creepy scoring. You TAG, you own it. Trust drives adoption.</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="compare">
-        <div class="compare-title">Status Quo vs TAG</div>
-        <div class="compare-cols">
-          <div class="compare-col">
-            <h4>Old Stack</h4>
-            <ul>
-              <li>Slack threads</li>
-              <li>Notion doc sprawl</li>
-              <li>Passive tracking</li>
-            </ul>
-          </div>
-          <div class="vs">VS</div>
-          <div class="compare-col tag">
-            <h4>TAG</h4>
-            <ul>
-              <li>→ 0 messages, 1 card</li>
-              <li>→ Grounded + source-cited</li>
-              <li>→ Explicit, private, yours</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- FAQ -->
-  <section id="faq">
-    <div class="container">
-      <div class="section-label">FAQ</div>
-      <h2 class="section-title">What people ask <span class="highlight">before the pilot</span></h2>
-      <div class="faq-list">
-        <div class="faq-item">
-          <h3>Is this another chatbot in Slack?</h3>
-          <p>No. TAG does not add a channel. You tag the source once. Agents negotiate async, and you get one source-cited decision card instead of a thread.</p>
-        </div>
-        <div class="faq-item">
-          <h3>What can an agent see?</h3>
-          <p>Only what your role already allows. Proxies inherit permissions, not inboxes. New hires stay in a sandbox until a mentor opens the gate.</p>
-        </div>
-        <div class="faq-item">
-          <h3>How do you stop hallucinations?</h3>
-          <p>A verifier checks every card against the raw tags. If it cannot cite the source, it does not ship. Conflicts come back as Plan A vs Plan B, not a confident guess.</p>
-        </div>
-        <div class="faq-item">
-          <h3>How does a pilot start?</h3>
-          <p>Fifty seats, ninety days, $30-50 per seat. Email bruce@[tag].ai and we scope the first workflow, usually status updates and cross-timezone handoffs.</p>
         </div>
       </div>
     </div>
