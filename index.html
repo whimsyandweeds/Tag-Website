@@ -612,27 +612,31 @@
       color: var(--text-muted);
     }
 
-    .problem-visual {
-      position: relative;
+    .problem-layout {
+      grid-template-columns: 1.05fr 0.95fr;
+      align-items: center;
     }
 
     .problem-visual {
+      position: relative;
       display: flex;
       align-items: center;
-      justify-content: center;
+      justify-content: flex-end;
+      min-height: 100%;
     }
 
     .problem-visual img {
       width: auto;
-      max-width: 320px;
+      max-width: min(460px, 100%);
       height: auto;
-      max-height: 460px;
-      margin: 0 auto;
+      max-height: min(620px, 72vh);
+      margin: 0;
       display: block;
       object-fit: contain;
       border-radius: 0;
       background: transparent;
-      filter: drop-shadow(0 24px 40px rgba(255, 45, 138, 0.35));
+      transform: translate(18px, -28px);
+      filter: drop-shadow(0 28px 46px rgba(255, 45, 138, 0.4));
     }
 
     /* Meet TAG */
@@ -1277,7 +1281,7 @@
           </div>
         </div>
         <div class="problem-visual">
-          <img src="calendar.webp" alt="Melting calendar overloaded with meetings" width="317" height="395" style="max-width:320px;height:auto;">
+          <img src="calendar.webp" alt="Melting calendar overloaded with meetings" width="317" height="395" style="width:auto;height:auto;">
         </div>
       </div>
     </div>
