@@ -1160,6 +1160,75 @@
       color: var(--text-muted);
     }
 
+
+    /* Collapsible section pills */
+    html { scroll-snap-type: none; }
+    .pill-stack {
+      max-width: 1120px;
+      margin: 96px auto 48px;
+      padding: 0 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    section.pill {
+      min-height: 0;
+      padding: 0;
+      margin: 0;
+      scroll-snap-align: none;
+      scroll-snap-stop: normal;
+      justify-content: flex-start;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 45, 138, 0.35);
+      background: rgba(12, 8, 22, 0.78);
+      backdrop-filter: blur(12px);
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+    }
+    section.pill.open {
+      border-radius: 28px;
+      border-color: rgba(255, 229, 102, 0.45);
+    }
+    .pill-tab {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 16px 22px;
+      background: transparent;
+      color: var(--text);
+      border: 0;
+      font: inherit;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      font-size: 1.05rem;
+      cursor: pointer;
+      text-align: left;
+    }
+    .pill-tab span.kicker {
+      color: var(--pink);
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-right: 10px;
+    }
+    .pill-chev {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: var(--yellow);
+      color: #1a0a2e;
+      font-weight: 900;
+      flex-shrink: 0;
+    }
+    section.pill.open .pill-chev { background: var(--pink); color: white; }
+    .pill-panel { display: none; padding: 0 8px 28px; }
+    section.pill.open .pill-panel { display: block; }
+    section.hero.pill { padding-top: 0; }
+
     /* Mobile nav */
     .menu-toggle {
       display: none;
@@ -1209,8 +1278,14 @@
     </div>
   </nav>
 
+  <div class="pill-stack">
   <!-- Hero -->
-  <section class="hero">
+  <section class="hero pill open" id="hero">
+    <button class="pill-tab" aria-expanded="true">
+      <span><span class="kicker">Start</span>TAG</span>
+      <span class="pill-chev">–</span>
+    </button>
+    <div class="pill-panel">
     <div class="container">
       <div class="hero-inner">
         <div class="hero-content">
@@ -1247,10 +1322,16 @@
         </div>
       </div>
     </div>
+    </div>
   </section>
 
   <!-- Problem -->
-  <section class="problem" id="problem">
+  <section class="problem pill" id="problem">
+    <button class="pill-tab" aria-expanded="false">
+      <span><span class="kicker">01</span>The problem</span>
+      <span class="pill-chev">+</span>
+    </button>
+    <div class="pill-panel">
     <div class="container">
       <div class="section-label">The problem</div>
       <h2 class="section-title">The problem isn't work.<br><span class="highlight">It's coordination.</span></h2>
@@ -1285,10 +1366,16 @@
         </div>
       </div>
     </div>
+    </div>
   </section>
 
   <!-- How it works -->
-  <section class="engine" id="how">
+  <section class="engine pill" id="how">
+    <button class="pill-tab" aria-expanded="false">
+      <span><span class="kicker">02</span>How it works</span>
+      <span class="pill-chev">+</span>
+    </button>
+    <div class="pill-panel">
     <div class="container">
       <div class="section-label">How it works</div>
       <h2 class="section-title">The 4-Stroke Engine</h2>
@@ -1333,10 +1420,16 @@
         </div>
       </div>
     </div>
+    </div>
   </section>
 
   <!-- Security -->
-  <section id="security">
+  <section class="pill" id="security">
+    <button class="pill-tab" aria-expanded="false">
+      <span><span class="kicker">03</span>Security</span>
+      <span class="pill-chev">+</span>
+    </button>
+    <div class="pill-panel">
     <div class="container">
       <div class="section-label">Built for paranoid IT & stressed HR</div>
       <h2 class="section-title">Security sandboxing<br>& <span class="highlight">HR governance</span></h2>
@@ -1375,10 +1468,16 @@
         </div>
       </div>
     </div>
+    </div>
   </section>
 
   <!-- Pricing -->
-  <section id="pricing">
+  <section class="pill" id="pricing">
+    <button class="pill-tab" aria-expanded="false">
+      <span><span class="kicker">04</span>Pricing</span>
+      <span class="pill-chev">+</span>
+    </button>
+    <div class="pill-panel">
     <div class="container">
       <div class="section-label">Pricing</div>
       <h2 class="section-title">Start with 50 seats. <span class="highlight">Expand on proof.</span></h2>
@@ -1421,10 +1520,16 @@
         </div>
       </div>
     </div>
+    </div>
   </section>
 
   <!-- CTA -->
-  <section class="cta" id="cta">
+  <section class="cta pill" id="cta">
+    <button class="pill-tab" aria-expanded="false">
+      <span><span class="kicker">05</span>Private beta</span>
+      <span class="pill-chev">+</span>
+    </button>
+    <div class="pill-panel">
     <div class="container">
       <h2>Stop managing <span class="pink">time</span>.<br>Start making <span class="yellow">decisions</span>.</h2>
       <p>TAG is not another inbox. It is the layer that turns updates into one decision you can approve, reject, or fix in five minutes.</p>
@@ -1437,7 +1542,10 @@
         <span>Contact: bruce@[tag].ai</span>
       </div>
     </div>
+    </div>
   </section>
+
+  </div>
 
   <footer>
     <div class="container">
@@ -1449,6 +1557,43 @@
   </footer>
 
   <script>
+
+    document.querySelectorAll('.pill-tab').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const section = btn.closest('.pill');
+        const willOpen = !section.classList.contains('open');
+        document.querySelectorAll('.pill').forEach(p => {
+          p.classList.remove('open');
+          const chev = p.querySelector('.pill-chev');
+          const tab = p.querySelector('.pill-tab');
+          if (chev) chev.textContent = '+';
+          if (tab) tab.setAttribute('aria-expanded', 'false');
+        });
+        if (willOpen) {
+          section.classList.add('open');
+          btn.setAttribute('aria-expanded', 'true');
+          btn.querySelector('.pill-chev').textContent = '–';
+          section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', () => {
+        const section = document.querySelector(a.getAttribute('href'));
+        if (!section || !section.classList.contains('pill')) return;
+        document.querySelectorAll('.pill').forEach(p => {
+          p.classList.remove('open');
+          const chev = p.querySelector('.pill-chev');
+          if (chev) chev.textContent = '+';
+        });
+        section.classList.add('open');
+        const tab = section.querySelector('.pill-tab');
+        if (tab) tab.setAttribute('aria-expanded', 'true');
+        const chev = section.querySelector('.pill-chev');
+        if (chev) chev.textContent = '–';
+      });
+    });
+
     const toggle = document.getElementById('menuToggle');
     const links = document.getElementById('navLinks');
     toggle.addEventListener('click', () => {
