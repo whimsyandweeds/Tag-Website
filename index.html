@@ -110,13 +110,14 @@
   position: fixed;
   inset: 0;
   z-index: -1;
-  background-color: var(--bg);
-  /* File lives at the repo root, not /assets. Overlay keeps type readable. */
+  background-color: #07040f;
+  /* Pink mesh on the left, gold mesh on the right. Left wash keeps headlines readable. */
   background-image:
-    linear-gradient(180deg, rgba(10, 6, 18, 0.78) 0%, rgba(10, 6, 18, 0.86) 50%, rgba(10, 6, 18, 0.92) 100%),
+    linear-gradient(90deg, rgba(10, 6, 18, 0.72) 0%, rgba(10, 6, 18, 0.38) 38%, rgba(10, 6, 18, 0.18) 100%),
+    radial-gradient(ellipse at 70% 40%, rgba(10, 6, 18, 0.05), rgba(10, 6, 18, 0.45) 78%),
     url("network-bg.webp");
   background-size: cover;
-  background-position: center;
+  background-position: center right;
   background-repeat: no-repeat;
 }
     .container {
@@ -133,7 +134,7 @@
       right: 0;
       z-index: 100;
       padding: 16px 0;
-      background: rgba(10, 6, 18, 0.85);
+      background: rgba(10, 6, 18, 0.55);
       backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--border);
     }
@@ -1077,7 +1078,7 @@
           </div>
         </div>
         <div class="hero-visual">
-          <img src="network.webp" alt="Connected data network — AI agents collaborating asynchronously" width="520" height="292" style="max-width:100%;height:auto;">
+          <img src="hero-net.webp" alt="Connected data network — AI agents collaborating asynchronously" width="496" height="422" style="max-width:100%;height:auto;">
         </div>
       </div>
     </div>
