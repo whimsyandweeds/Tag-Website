@@ -1166,23 +1166,28 @@
     body { padding-bottom: 92px; }
     .sheet { display: none; }
     .sheet.open {
-      display: flex;
+      display: block;
       position: fixed;
       inset: 0;
       z-index: 180;
-      overflow: auto;
+      overflow: hidden;
       background:
         linear-gradient(180deg, rgba(10, 6, 18, 0.92), rgba(10, 6, 18, 0.96)),
         url("network-bg.webp") center / cover no-repeat;
-      padding: 28px 0 120px;
+      padding: 0;
       min-height: 0;
       border-radius: 0;
     }
+    .sheet.open .container {
+      height: calc(100dvh - 168px);
+      margin-top: 64px;
+      overflow: auto;
+      padding-bottom: 28px;
+    }
     .sheet-close {
-      position: sticky;
-      top: 8px;
-      margin-left: auto;
-      margin-right: 20px;
+      position: absolute;
+      top: 12px;
+      right: 14px;
       width: 42px;
       height: 42px;
       border: 0;
@@ -1192,7 +1197,7 @@
       font-size: 1.35rem;
       font-weight: 700;
       cursor: pointer;
-      z-index: 2;
+      z-index: 5;
       box-shadow: 0 8px 24px rgba(255, 45, 138, 0.4);
     }
     .dock {
@@ -1280,14 +1285,9 @@
       .meet-grid {
         grid-template-columns: 1fr;
       }
-      .sheet.open {
-        padding-top: 64px;
-      }
-      .sheet-close {
-        position: fixed;
-        top: 12px;
-        right: 12px;
-        margin: 0;
+      .sheet.open .container {
+        height: calc(100dvh - 176px);
+        margin-top: 68px;
       }
     }
 
