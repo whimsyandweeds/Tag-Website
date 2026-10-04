@@ -1172,7 +1172,7 @@
       z-index: 180;
       overflow: hidden;
       background:
-        linear-gradient(180deg, rgba(10, 6, 18, 0.92), rgba(10, 6, 18, 0.96)),
+        linear-gradient(180deg, rgba(10, 6, 18, 0.28), rgba(10, 6, 18, 0.42)),
         url("network-bg.webp") center / cover no-repeat;
       padding: 0;
       min-height: 0;
@@ -1317,9 +1317,6 @@
       .nav-links {
         display: none;
       }
-      .menu-toggle {
-        display: block;
-      }
       .nav-links.open {
         display: flex;
         flex-direction: column;
@@ -1348,7 +1345,6 @@
         <a href="#pricing">Pricing</a>
         <a href="#cta" class="btn btn-primary">Join Private Beta</a>
       </div>
-      <button class="menu-toggle" id="menuToggle" aria-label="Menu">☰</button>
     </div>
   </nav>
 
@@ -1654,10 +1650,6 @@
       });
     });
 
-    const toggle = document.getElementById('menuToggle');
-    const links = document.getElementById('navLinks');
-    toggle.addEventListener('click', () => links.classList.toggle('open'));
-    links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => links.classList.remove('open')));
   </script>
 </body>
 </html>
