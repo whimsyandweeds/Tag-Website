@@ -1229,6 +1229,18 @@
       white-space: nowrap;
       cursor: pointer;
     }
+
+    .dock-home {
+      width: 40px;
+      padding: 8px 0;
+      display: grid;
+      place-items: center;
+    }
+    .dock-home svg {
+      width: 18px;
+      height: 18px;
+      fill: currentColor;
+    }
     .dock button.active {
       background: var(--yellow);
       color: #1a0a2e;
@@ -1583,6 +1595,9 @@
 
 
   <div class="dock" id="dock">
+    <button type="button" data-home aria-label="Home" class="dock-home active">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10.5 12 4l8 6.5V20a1 1 0 0 1-1 1h-5v-6H10v6H5a1 1 0 0 1-1-1v-9.5Z"/></svg>
+    </button>
     <button type="button" data-sheet="problem">Problem</button>
     <button type="button" data-sheet="how">How</button>
     <button type="button" data-sheet="security">Security</button>
@@ -1605,7 +1620,7 @@
 
     function closeSheets() {
       sheets.forEach(s => s.classList.remove('open'));
-      dockButtons.forEach(b => b.classList.remove('active'));
+      dockButtons.forEach(b => b.classList.toggle('active', b.dataset.home !== undefined));
       document.body.style.overflow = '';
     }
 
@@ -1621,7 +1636,14 @@
       if (menu) menu.classList.remove('open');
     }
 
-    dockButtons.forEach(btn => btn.addEventListener('click', () => openSheet(btn.dataset.sheet)));
+    dockButtons.forEach(btn => btn.addEventListener('click', () => {
+      if (btn.dataset.home !== undefined) {
+        closeSheets();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        return;
+      }
+      openSheet(btn.dataset.sheet);
+    }));
     document.querySelectorAll('.sheet-close').forEach(btn => btn.addEventListener('click', closeSheets));
     document.querySelectorAll('a[href^="#"]').forEach(a => {
       a.addEventListener('click', (event) => {
