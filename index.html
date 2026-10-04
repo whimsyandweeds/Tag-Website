@@ -1250,6 +1250,47 @@
       .hero-inner { gap: 28px; }
     }
 
+
+    @media (max-width: 800px) {
+      .problem-layout {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+      .problem-visual {
+        order: -1;
+        justify-content: center;
+        margin: 0 auto 8px;
+      }
+      .problem-visual img {
+        max-width: min(240px, 70vw);
+        max-height: 280px;
+        margin: 0 auto;
+        transform: none;
+      }
+      .problem-card {
+        flex-direction: column;
+        gap: 6px;
+        align-items: flex-start;
+      }
+      .problem-card .num {
+        min-width: 0;
+      }
+      .engine-grid,
+      .security-grid,
+      .meet-grid {
+        grid-template-columns: 1fr;
+      }
+      .sheet.open {
+        padding-top: 64px;
+      }
+      .sheet-close {
+        position: fixed;
+        top: 12px;
+        right: 12px;
+        margin: 0;
+      }
+    }
+
     /* Mobile nav */
     .menu-toggle {
       display: none;
