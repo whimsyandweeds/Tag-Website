@@ -1161,73 +1161,94 @@
     }
 
 
-    /* Collapsible section pills */
+    /* First screen is a normal page. Other sections open from the bottom dock. */
     html { scroll-snap-type: none; }
-    .pill-stack {
-      max-width: 1120px;
-      margin: 96px auto 48px;
-      padding: 0 24px;
+    body { padding-bottom: 92px; }
+    .sheet { display: none; }
+    .sheet.open {
       display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
-    section.pill {
+      position: fixed;
+      inset: 0;
+      z-index: 180;
+      overflow: auto;
+      background:
+        linear-gradient(180deg, rgba(10, 6, 18, 0.92), rgba(10, 6, 18, 0.96)),
+        url("network-bg.webp") center / cover no-repeat;
+      padding: 28px 0 120px;
       min-height: 0;
-      padding: 0;
-      margin: 0;
-      scroll-snap-align: none;
-      scroll-snap-stop: normal;
-      justify-content: flex-start;
-      border-radius: 999px;
-      border: 1px solid rgba(255, 45, 138, 0.35);
-      background: rgba(12, 8, 22, 0.78);
-      backdrop-filter: blur(12px);
-      overflow: hidden;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+      border-radius: 0;
     }
-    section.pill.open {
-      border-radius: 28px;
-      border-color: rgba(255, 229, 102, 0.45);
+    .sheet-close {
+      position: sticky;
+      top: 8px;
+      margin-left: auto;
+      margin-right: 20px;
+      width: 42px;
+      height: 42px;
+      border: 0;
+      border-radius: 50%;
+      background: var(--pink);
+      color: white;
+      font-size: 1.35rem;
+      font-weight: 700;
+      cursor: pointer;
+      z-index: 2;
+      box-shadow: 0 8px 24px rgba(255, 45, 138, 0.4);
     }
-    .pill-tab {
-      width: 100%;
+    .dock {
+      position: fixed;
+      left: 50%;
+      bottom: 14px;
+      transform: translateX(-50%);
+      z-index: 220;
       display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      padding: 16px 22px;
+      gap: 6px;
+      padding: 7px;
+      border-radius: 999px;
+      background: rgba(10, 6, 18, 0.82);
+      border: 1px solid rgba(255, 45, 138, 0.4);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
+      backdrop-filter: blur(16px);
+      max-width: calc(100% - 20px);
+      overflow-x: auto;
+    }
+    .dock button {
+      border: 0;
+      border-radius: 999px;
+      padding: 10px 14px;
       background: transparent;
       color: var(--text);
-      border: 0;
       font: inherit;
-      font-weight: 800;
-      letter-spacing: -0.02em;
-      font-size: 1.05rem;
+      font-size: 0.78rem;
+      font-weight: 700;
+      white-space: nowrap;
       cursor: pointer;
-      text-align: left;
     }
-    .pill-tab span.kicker {
-      color: var(--pink);
-      font-size: 0.72rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      margin-right: 10px;
-    }
-    .pill-chev {
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      display: grid;
-      place-items: center;
+    .dock button.active {
       background: var(--yellow);
       color: #1a0a2e;
-      font-weight: 900;
-      flex-shrink: 0;
     }
-    section.pill.open .pill-chev { background: var(--pink); color: white; }
-    .pill-panel { display: none; padding: 0 8px 28px; }
-    section.pill.open .pill-panel { display: block; }
-    section.hero.pill { padding-top: 0; }
+    @media (max-width: 700px) {
+      .stage {
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 16px;
+      }
+      .ticket, .focus-card, .orb {
+        position: relative;
+        top: auto;
+        right: auto;
+        left: auto;
+        bottom: auto;
+        animation: none;
+      }
+      .ticket { width: fit-content; transform: rotate(-3deg); }
+      .focus-card { width: 100%; }
+      .orb { width: 64px; height: 64px; }
+      .hero-inner { gap: 28px; }
+    }
 
     /* Mobile nav */
     .menu-toggle {
@@ -1278,14 +1299,8 @@
     </div>
   </nav>
 
-  <div class="pill-stack">
   <!-- Hero -->
-  <section class="hero pill open" id="hero">
-    <button class="pill-tab" aria-expanded="true">
-      <span><span class="kicker">Start</span>TAG</span>
-      <span class="pill-chev">–</span>
-    </button>
-    <div class="pill-panel">
+  <section class="hero" id="hero">
     <div class="container">
       <div class="hero-inner">
         <div class="hero-content">
@@ -1322,16 +1337,12 @@
         </div>
       </div>
     </div>
-    </div>
   </section>
 
   <!-- Problem -->
-  <section class="problem pill" id="problem">
-    <button class="pill-tab" aria-expanded="false">
-      <span><span class="kicker">01</span>The problem</span>
-      <span class="pill-chev">+</span>
-    </button>
-    <div class="pill-panel">
+  <section class="problem sheet" id="problem">
+    <button class="sheet-close" type="button" aria-label="Close">×</button>
+
     <div class="container">
       <div class="section-label">The problem</div>
       <h2 class="section-title">The problem isn't work.<br><span class="highlight">It's coordination.</span></h2>
@@ -1366,16 +1377,12 @@
         </div>
       </div>
     </div>
-    </div>
   </section>
 
   <!-- How it works -->
-  <section class="engine pill" id="how">
-    <button class="pill-tab" aria-expanded="false">
-      <span><span class="kicker">02</span>How it works</span>
-      <span class="pill-chev">+</span>
-    </button>
-    <div class="pill-panel">
+  <section class="engine sheet" id="how">
+    <button class="sheet-close" type="button" aria-label="Close">×</button>
+
     <div class="container">
       <div class="section-label">How it works</div>
       <h2 class="section-title">The 4-Stroke Engine</h2>
@@ -1420,16 +1427,12 @@
         </div>
       </div>
     </div>
-    </div>
   </section>
 
   <!-- Security -->
-  <section class="pill" id="security">
-    <button class="pill-tab" aria-expanded="false">
-      <span><span class="kicker">03</span>Security</span>
-      <span class="pill-chev">+</span>
-    </button>
-    <div class="pill-panel">
+  <section class="sheet" id="security">
+    <button class="sheet-close" type="button" aria-label="Close">×</button>
+
     <div class="container">
       <div class="section-label">Built for paranoid IT & stressed HR</div>
       <h2 class="section-title">Security sandboxing<br>& <span class="highlight">HR governance</span></h2>
@@ -1468,16 +1471,12 @@
         </div>
       </div>
     </div>
-    </div>
   </section>
 
   <!-- Pricing -->
-  <section class="pill" id="pricing">
-    <button class="pill-tab" aria-expanded="false">
-      <span><span class="kicker">04</span>Pricing</span>
-      <span class="pill-chev">+</span>
-    </button>
-    <div class="pill-panel">
+  <section class="sheet" id="pricing">
+    <button class="sheet-close" type="button" aria-label="Close">×</button>
+
     <div class="container">
       <div class="section-label">Pricing</div>
       <h2 class="section-title">Start with 50 seats. <span class="highlight">Expand on proof.</span></h2>
@@ -1520,16 +1519,12 @@
         </div>
       </div>
     </div>
-    </div>
   </section>
 
   <!-- CTA -->
-  <section class="cta pill" id="cta">
-    <button class="pill-tab" aria-expanded="false">
-      <span><span class="kicker">05</span>Private beta</span>
-      <span class="pill-chev">+</span>
-    </button>
-    <div class="pill-panel">
+  <section class="cta sheet" id="cta">
+    <button class="sheet-close" type="button" aria-label="Close">×</button>
+
     <div class="container">
       <h2>Stop managing <span class="pink">time</span>.<br>Start making <span class="yellow">decisions</span>.</h2>
       <p>TAG is not another inbox. It is the layer that turns updates into one decision you can approve, reject, or fix in five minutes.</p>
@@ -1542,9 +1537,16 @@
         <span>Contact: bruce@[tag].ai</span>
       </div>
     </div>
-    </div>
   </section>
 
+
+
+  <div class="dock" id="dock">
+    <button type="button" data-sheet="problem">Problem</button>
+    <button type="button" data-sheet="how">How</button>
+    <button type="button" data-sheet="security">Security</button>
+    <button type="button" data-sheet="pricing">Pricing</button>
+    <button type="button" data-sheet="cta">Beta</button>
   </div>
 
   <footer>
@@ -1557,52 +1559,42 @@
   </footer>
 
   <script>
+    const sheets = document.querySelectorAll('.sheet');
+    const dockButtons = document.querySelectorAll('#dock button');
 
-    document.querySelectorAll('.pill-tab').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const section = btn.closest('.pill');
-        const willOpen = !section.classList.contains('open');
-        document.querySelectorAll('.pill').forEach(p => {
-          p.classList.remove('open');
-          const chev = p.querySelector('.pill-chev');
-          const tab = p.querySelector('.pill-tab');
-          if (chev) chev.textContent = '+';
-          if (tab) tab.setAttribute('aria-expanded', 'false');
-        });
-        if (willOpen) {
-          section.classList.add('open');
-          btn.setAttribute('aria-expanded', 'true');
-          btn.querySelector('.pill-chev').textContent = '–';
-          section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-      });
-    });
+    function closeSheets() {
+      sheets.forEach(s => s.classList.remove('open'));
+      dockButtons.forEach(b => b.classList.remove('active'));
+      document.body.style.overflow = '';
+    }
+
+    function openSheet(id) {
+      const sheet = document.getElementById(id);
+      if (!sheet) return;
+      sheets.forEach(s => s.classList.remove('open'));
+      sheet.classList.add('open');
+      sheet.scrollTop = 0;
+      document.body.style.overflow = 'hidden';
+      dockButtons.forEach(b => b.classList.toggle('active', b.dataset.sheet === id));
+      const menu = document.getElementById('navLinks');
+      if (menu) menu.classList.remove('open');
+    }
+
+    dockButtons.forEach(btn => btn.addEventListener('click', () => openSheet(btn.dataset.sheet)));
+    document.querySelectorAll('.sheet-close').forEach(btn => btn.addEventListener('click', closeSheets));
     document.querySelectorAll('a[href^="#"]').forEach(a => {
-      a.addEventListener('click', () => {
-        const section = document.querySelector(a.getAttribute('href'));
-        if (!section || !section.classList.contains('pill')) return;
-        document.querySelectorAll('.pill').forEach(p => {
-          p.classList.remove('open');
-          const chev = p.querySelector('.pill-chev');
-          if (chev) chev.textContent = '+';
-        });
-        section.classList.add('open');
-        const tab = section.querySelector('.pill-tab');
-        if (tab) tab.setAttribute('aria-expanded', 'true');
-        const chev = section.querySelector('.pill-chev');
-        if (chev) chev.textContent = '–';
+      a.addEventListener('click', (event) => {
+        const id = a.getAttribute('href').slice(1);
+        if (!document.getElementById(id) || !document.getElementById(id).classList.contains('sheet')) return;
+        event.preventDefault();
+        openSheet(id);
       });
     });
 
     const toggle = document.getElementById('menuToggle');
     const links = document.getElementById('navLinks');
-    toggle.addEventListener('click', () => {
-      links.classList.toggle('open');
-    });
-    // Close menu on link click
-    links.querySelectorAll('a').forEach(a => {
-      a.addEventListener('click', () => links.classList.remove('open'));
-    });
+    toggle.addEventListener('click', () => links.classList.toggle('open'));
+    links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => links.classList.remove('open')));
   </script>
 </body>
 </html>
